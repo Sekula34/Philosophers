@@ -14,6 +14,20 @@
 
 int main()
 {
+	struct timeval my_time;
+	if(gettimeofday(&my_time, NULL) != 0)
+	{
+		perror("gettimeofday failed");
+		return (FAIL);
+	}
+	printf("trenutno vrijeme je %ld sekundi i %ld mikrosekundi\n", my_time.tv_sec, my_time.tv_usec);
+	usleep(5 * MICRO);
+	if(gettimeofday(&my_time, NULL) != 0)
+	{
+		perror("gettimeofday failed");
+		return (FAIL);
+	}
+	printf("trenutno vrijeme je %ld sekundi i %ld mikrosekundi\n", my_time.tv_sec, my_time.tv_usec);
 	printf("hello i am filip\n");
 	return(OK);
 }

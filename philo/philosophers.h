@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 # define OK 0
 # define FAIL 1
+# define MICRO 1000000
 
 # include <pthread.h>
 # include <stdio.h>
