@@ -15,6 +15,7 @@
 # define OK 0
 # define FAIL 1
 # define MICRO 1000000
+# define MILI 1000
 
 # include <pthread.h>
 # include <stdio.h>
