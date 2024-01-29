@@ -2,6 +2,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
+ARGS = 5 10 10 10
+
 NAME = philo
 
 SOURCES = main.c \
@@ -31,4 +33,4 @@ fclean : clean
 re : fclean all
 
 valgrind : philo
-	valgrind --tool=helgrind ./philo
+	valgrind --tool=helgrind ./philo $(ARGS)
