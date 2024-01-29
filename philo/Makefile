@@ -14,9 +14,9 @@ HEADERS = philosophers.h
 	$(CC) $(CFLAGS) -c -g $< -o $@
 
 $(NAME) : $(OBJECTS) $(HEADERS)
-	cc $(OBJECTS) -o $(NAME)
+	cc $(OBJECTS) -o $(NAME) -pthread
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re valgrind
 
 all : $(NAME)
 
@@ -27,3 +27,6 @@ fclean : clean
 	-rm $(NAME)
 
 re : fclean all
+
+valgrind : philo
+	valgrind --tool=helgrind ./philo
