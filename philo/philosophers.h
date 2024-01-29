@@ -24,5 +24,13 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_philosophers
+{
+	int		num_of_philos;
+	time_t	time_to_die;
+	time_t	time_to_eat;
+	time_t	time_to_sleep;
+	int		meals;
+} t_philosophers;
 
 #endif
