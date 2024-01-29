@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 SOURCES = main.c \
-input_checker.c
+input_checker.c \
+philo_init.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 

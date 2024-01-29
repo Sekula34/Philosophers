@@ -14,8 +14,15 @@
 
 int main(int argc, char **argv)
 {
-	if(input_checker(argc, argv) != OK)
+	t_philosophers philo;
+	
+	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
+	printf("num of philos is %d\n", philo.num_of_philos);
+	printf("die of philos is %ld\n", philo.time_to_die);
+	printf("eat of philos is %ld\n", philo.time_to_eat);
+	printf("sleep of philos is %ld\n", philo.time_to_sleep);
+	printf("meals of philos is %d\n", philo.meals);
 	return (OK);
 	//init
 	//philosophers_il_stagod

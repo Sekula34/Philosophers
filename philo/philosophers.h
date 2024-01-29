@@ -33,6 +33,9 @@ typedef struct s_philosophers
 	int		meals;
 } t_philosophers;
 
+int	ft_atoi(const char *nptr);
+int	ft_isdigit(int c);
 int	input_checker(int argc, char **argv);
+int philo_init(int argc, char **argv, t_philosophers *philo);
 
 #endif
