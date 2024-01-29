@@ -33,4 +33,6 @@ typedef struct s_philosophers
 	int		meals;
 } t_philosophers;
 
+int	input_checker(int argc, char **argv);
+
 #endif

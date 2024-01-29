@@ -14,7 +14,9 @@
 
 int main(int argc, char **argv)
 {
-	//input_checker
+	if(input_checker(argc, argv) != OK)
+		return(FAIL);
+	return (OK);
 	//init
 	//philosophers_il_stagod
 }
