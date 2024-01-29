@@ -16,3 +16,18 @@ void philo_end
 	unistavaj mutexe
 	free mutexe
 }
+
+
+neparan_filozofer_funkcija
+{
+	while(i < philo_meals)
+		uzmi lijevu vilicu
+		uzmi desnu vilicu
+		papaj
+		i++;
+		pusti lijevu vilicu
+		pusti desnu vilicu
+		ako je pojeo meals puta break bez umiranja 
+		spavaj
+		misli
+}
