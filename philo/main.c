@@ -22,6 +22,8 @@ int main(int argc, char **argv)
 	printf("mutex1 is initialized\n");
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
+	if(mutex_init(&philo) != 0)
+		return(FAIL);
 	printf("num of philos is %d\n", philo.num_of_philos);
 	printf("die of philos is %ld\n", philo.time_to_die);
 	printf("eat of philos is %ld\n", philo.time_to_eat);
@@ -31,6 +33,7 @@ int main(int argc, char **argv)
 	if(mutex_num == NULL)
 	{
 		printf("malloc of mutexes failed");
+		philo_end(&philo);
 		return (FAIL);
 	}
 	pthread_mutex_init(&mutex_num[0], NULL);
@@ -39,6 +42,7 @@ int main(int argc, char **argv)
 	pthread_mutex_unlock(&mutex_num[0]);
 	pthread_mutex_destroy(&mutex_num[0]);
 	free(mutex_num);
+	philo_end(&philo);
 	return (OK);
 	//init
 	//philosophers_il_stagod

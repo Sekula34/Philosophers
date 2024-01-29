@@ -8,7 +8,8 @@ NAME = philo
 
 SOURCES = main.c \
 input_checker.c \
-philo_init.c
+philo_init.c \
+mutex_init.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 
@@ -34,3 +35,9 @@ re : fclean all
 
 valgrind : philo
 	valgrind --tool=helgrind ./philo $(ARGS)
+
+leak : philo
+	valgrind --leak-check=full ./philo $(ARGS)
+
+fun :philo
+	funcheck -a ./philo $(ARGS)

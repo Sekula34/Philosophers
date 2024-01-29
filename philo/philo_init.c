@@ -58,5 +58,6 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 		philo->meals = ft_atoi(argv[5]);
 	else
 		philo->meals = -1;
+	
 	return (OK);
 }
