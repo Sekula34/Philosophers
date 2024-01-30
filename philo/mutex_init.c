@@ -45,6 +45,7 @@ static int init_forks(t_philosophers *philo)
 
 void philo_end(t_philosophers *philo)
 {
+	free(philo->person);
 	destroy_and_free_forks(philo->num_of_philos, philo);
 }
 

@@ -24,6 +24,15 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_person
+{
+	int id; 
+	int left_fork;
+	int right_fork; 
+	time_t last_meal_time;
+	int dead_flag;
+} t_person;
+
 typedef struct s_philosophers
 {
 	int		num_of_philos;
@@ -33,13 +42,17 @@ typedef struct s_philosophers
 	int		meals;
 	pthread_mutex_t *fork_num;
 	pthread_mutex_t write_mut;
+	t_person *person;
 } t_philosophers;
+
 
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
 int	input_checker(int argc, char **argv);
+int make_philos(t_philosophers *philo);
 int	mutex_init(t_philosophers *philo);
 void philo_end(t_philosophers *philo);
 int philo_init(int argc, char **argv, t_philosophers *philo);
+time_t get_time_in_milisec();
 
 #endif

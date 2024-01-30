@@ -46,6 +46,9 @@ int	ft_atoi(const char *nptr)
 	return ((int)(result * sign));
 }
 
+//initialize evertyhint
+//ok
+//fail
 int philo_init(int argc, char **argv, t_philosophers *philo)
 {
 	if(input_checker(argc, argv) != 0)
@@ -54,10 +57,17 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
+	philo->person = NULL;
 	if (argc == 6)
 		philo->meals = ft_atoi(argv[5]);
 	else
 		philo->meals = -1;
-	
+	if(mutex_init(philo) != 0)
+		return (FAIL);
+	if(make_philos(philo) != 0)
+	{
+		philo_end(philo);
+		return (FAIL);
+	}
 	return (OK);
 }
