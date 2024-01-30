@@ -14,9 +14,23 @@
 
 pthread_mutex_t mutex1;
 
+void *eater_func(void *pointer)
+{
+	t_eater *jedac;
+
+	jedac = (t_eater *)pointer;
+	pthread_mutex_lock(&jedac->philo->write_mut);
+	printf("locakn\n");
+	pthread_mutex_unlock(&jedac->philo->write_mut);
+
+	return NULL;
+}
+
 int main(int argc, char **argv)
 {
 	t_philosophers philo;
+	t_eater diogen;
+	pthread_t first;
 
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
@@ -30,6 +44,13 @@ int main(int argc, char **argv)
 		printf("philo right fork is %d\n\n", philo.person[i].right_fork);
 		i++;
 	}
+	diogen.philo = &philo;
+	diogen.person = philo.person;
+	void *pointer;
+	pointer = &diogen;
+	pthread_create(&first, NULL, &eater_func, pointer);
+	pthread_join(first, NULL);
+	
 	printf("num of philos is %d\n", philo.num_of_philos);
 	printf("die of philos is %ld\n", philo.time_to_die);
 	printf("eat of philos is %ld\n", philo.time_to_eat);

@@ -45,6 +45,12 @@ typedef struct s_philosophers
 	t_person *person;
 } t_philosophers;
 
+typedef struct s_eater
+{
+	t_philosophers *philo;
+	t_person		*person;
+} t_eater;
+
 
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
