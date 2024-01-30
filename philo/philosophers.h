@@ -58,6 +58,7 @@ int	input_checker(int argc, char **argv);
 int make_philos(t_philosophers *philo);
 int	mutex_init(t_philosophers *philo);
 void philo_end(t_philosophers *philo);
+void *philo_func(void *pointer);
 int philo_init(int argc, char **argv, t_philosophers *philo);
 time_t get_time_in_milisec();
 

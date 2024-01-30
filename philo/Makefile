@@ -10,7 +10,8 @@ SOURCES = main.c \
 input_checker.c \
 make_philos.c \
 philo_init.c \
-mutex_init.c
+mutex_init.c \
+philo_func.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 

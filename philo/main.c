@@ -12,19 +12,6 @@
 
 #include "philosophers.h"
 
-pthread_mutex_t mutex1;
-
-void *eater_func(void *pointer)
-{
-	t_eater *jedac;
-
-	jedac = (t_eater *)pointer;
-	pthread_mutex_lock(&jedac->philo->write_mut);
-	printf("locakn\n");
-	pthread_mutex_unlock(&jedac->philo->write_mut);
-
-	return NULL;
-}
 
 int main(int argc, char **argv)
 {
@@ -45,10 +32,10 @@ int main(int argc, char **argv)
 		i++;
 	}
 	diogen.philo = &philo;
-	diogen.person = philo.person;
+	diogen.person = philo.person + 2;
 	void *pointer;
 	pointer = &diogen;
-	pthread_create(&first, NULL, &eater_func, pointer);
+	pthread_create(&first, NULL, &philo_func, pointer);
 	pthread_join(first, NULL);
 	
 	printf("num of philos is %d\n", philo.num_of_philos);
