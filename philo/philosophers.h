@@ -50,6 +50,8 @@ typedef struct s_eater
 	int	id;
 	t_philosophers *philo;
 	t_person		*person;
+	pthread_mutex_t *first_fork;
+	pthread_mutex_t *second_fork;
 } t_eater;
 
 

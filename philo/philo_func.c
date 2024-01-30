@@ -27,27 +27,38 @@ static pthread_mutex_t *get_fork(t_eater *diogen, int id, int option)
 	return(first);
 }
 
+static void set_forks(t_eater *diogen)
+{
+	diogen->first_fork = get_fork(diogen, diogen->person->id, 1);
+	diogen->second_fork = get_fork(diogen, diogen->person->id, 2);
+}
+
 void *philo_func(void *pointer)
 {
 	t_eater *diogen;
-	pthread_mutex_t *first_fork;
-	pthread_mutex_t *second_fork;
+	int i;
 
 	diogen = (t_eater *)pointer;
+	set_forks(diogen);
+	i = 0;
+	// while(i < diogen->philo->meals)
+	// {
+
+	// }
 	pthread_mutex_lock(&diogen->philo->write_mut);
 	printf("locakn\n");
 	printf("ja sam diogen %d\n", diogen->person->id);
 	pthread_mutex_unlock(&diogen->philo->write_mut);
-	first_fork = get_fork(diogen, diogen->person->id, 1);
-	second_fork = get_fork(diogen, diogen->person->id, 2);
-	pthread_mutex_lock(first_fork);
-	pthread_mutex_lock(second_fork);
+	diogen->first_fork = get_fork(diogen, diogen->person->id, 1);
+	diogen->second_fork = get_fork(diogen, diogen->person->id, 2);
+	pthread_mutex_lock(diogen->first_fork);
+	pthread_mutex_lock(diogen->second_fork);
 	pthread_mutex_lock(&diogen->philo->write_mut);
 	printf("lockana prva vilica\n");
 	printf("lockana i druga vilica\n");
 	pthread_mutex_unlock(&diogen->philo->write_mut);
-	pthread_mutex_unlock(second_fork);
-	pthread_mutex_unlock(first_fork);
+	pthread_mutex_unlock(diogen->second_fork);
+	pthread_mutex_unlock(diogen->first_fork);
 
 	return NULL;
 }
