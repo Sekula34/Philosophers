@@ -29,14 +29,14 @@ time_t	get_time_in_milisec()
 }
 
 //nop is number of philos
-void	one_philo_init(t_person *person, int id, int nop)
+void	one_philo_init(t_person *person, int id, int nop, t_philosophers *philo)
 {
 	person->id = id;
 	person->dead_flag = 0;
-	person->left_fork = id;
-	person->right_fork = id - 1;
+	person->left_fork = philo->fork_num + id;
+	person->right_fork = &philo->fork_num +;
 	if (id == 0)
-		person->right_fork = nop - 1;
+		person->right_fork = &philo->fork_num[nop - 1];
 	person->last_meal_time = get_time_in_milisec();
 }
 
@@ -53,7 +53,7 @@ int make_philos(t_philosophers *philo)
 		return (FAIL);
 	while (i < philo->num_of_philos)
 	{
-		one_philo_init(&philo->person[i], i, philo->num_of_philos);
+		one_philo_init(&philo->person[i], i, philo->num_of_philos, philo);
 		i++;
 	}
 	return (OK);

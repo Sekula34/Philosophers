@@ -18,16 +18,21 @@ void philo_end
 }
 
 
-neparan_filozofer_funkcija
+filozofer_funkcija
 {
-	while(i < philo_meals)
-		uzmi lijevu vilicu
-		uzmi desnu vilicu
+	ako je filizofer neparan
+		prva vilica = lijeva_vilica
+		desna_vilica = desna_vilica
+	ako je filozofer paran
+		prva vilica = desna_vilica 
+		druga vilica = lijeava_vilica
+	while(i < broj_obroka)
+	{
+		uzmi_prvu_vilicu
+		uzmi_drugu_vilicu
 		papaj
-		i++;
-		pusti lijevu vilicu
-		pusti desnu vilicu
-		ako je pojeo meals puta break bez umiranja 
 		spavaj
 		misli
+	}
+	return
 }

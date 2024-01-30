@@ -9,6 +9,7 @@ NAME = philo
 SOURCES = main.c \
 input_checker.c \
 make_philos.c \
+philo_func.c \
 philo_init.c \
 mutex_init.c
 

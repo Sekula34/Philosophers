@@ -17,9 +17,13 @@ pthread_mutex_t mutex1;
 int main(int argc, char **argv)
 {
 	t_philosophers philo;
+	void *pointer;
+
 
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
+	pointer = &philo;
+	philo_func(pointer);
 	int i = 0;
 	while (i < philo.num_of_philos)
 	{
