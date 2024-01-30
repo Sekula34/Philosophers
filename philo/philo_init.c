@@ -57,6 +57,7 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
+	philo->start_time = get_time_in_milisec();
 	philo->person = NULL;
 	philo->meals = -1;
 	if (argc == 6)

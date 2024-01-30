@@ -39,6 +39,7 @@ typedef struct s_philosophers
 	time_t	time_to_die;
 	time_t	time_to_eat;
 	time_t	time_to_sleep;
+	time_t	start_time;
 	int		meals;
 	pthread_mutex_t *fork_num;
 	pthread_mutex_t write_mut;
