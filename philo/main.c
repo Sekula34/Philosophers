@@ -70,7 +70,6 @@ int main(int argc, char **argv)
 		pthread_join(eaters[i], NULL);
 		i++;
 	}
-	
 	printf("num of philos is %d\n", philo.num_of_philos);
 	printf("die of philos is %ld\n", philo.time_to_die);
 	printf("eat of philos is %ld\n", philo.time_to_eat);
