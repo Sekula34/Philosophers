@@ -59,7 +59,7 @@ typedef struct s_eater
 	pthread_mutex_t *second_fork;
 } t_eater;
 
-
+void eating_func(t_eater *diogen);
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
 time_t get_relative_time(t_eater *diogen);
