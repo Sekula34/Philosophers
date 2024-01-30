@@ -58,10 +58,9 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
 	philo->person = NULL;
+	philo->meals = -1;
 	if (argc == 6)
 		philo->meals = ft_atoi(argv[5]);
-	else
-		philo->meals = -1;
 	if(mutex_init(philo) != 0)
 		return (FAIL);
 	if(make_philos(philo) != 0)
