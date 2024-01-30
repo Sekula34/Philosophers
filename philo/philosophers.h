@@ -47,6 +47,7 @@ typedef struct s_philosophers
 
 typedef struct s_eater
 {
+	int	id;
 	t_philosophers *philo;
 	t_person		*person;
 } t_eater;

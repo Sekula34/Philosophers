@@ -16,8 +16,9 @@
 int main(int argc, char **argv)
 {
 	t_philosophers philo;
-	t_eater diogen;
-	pthread_t first;
+	//t_eater diogen;
+	pthread_t *eaters;
+	t_eater *platos;
 
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
@@ -31,12 +32,44 @@ int main(int argc, char **argv)
 		printf("philo right fork is %d\n\n", philo.person[i].right_fork);
 		i++;
 	}
-	diogen.philo = &philo;
-	diogen.person = philo.person + 2;
+	eaters = malloc(sizeof(pthread_t) * philo.num_of_philos);
+	if(eaters == NULL)
+	{
+		philo_end(&philo);
+		return (FAIL);
+	}
+	platos =malloc(sizeof(t_eater) * philo.num_of_philos);
+	if(platos == NULL)
+	{
+		philo_end(&philo);
+		return (FAIL);
+	}
+	i = 0;
+	while(i < philo.num_of_philos)
+	{
+		platos[i].philo =&philo;
+		platos[i].person =philo.person + i;
+		i++;
+	}
+	// diogen.philo = &philo;
+	// diogen.person = philo.person;
+	// diogen.id = 0;
+	// void *pointer;
+	// pointer = &diogen;
+	i = 0;
 	void *pointer;
-	pointer = &diogen;
-	pthread_create(&first, NULL, &philo_func, pointer);
-	pthread_join(first, NULL);
+	while (i < philo.num_of_philos)
+	{
+		pointer = (void *) (platos + i);
+		pthread_create(&eaters[i], NULL, &philo_func, pointer);
+		i++;
+	}
+	i = 0;
+	while (i < philo.num_of_philos)
+	{
+		pthread_join(eaters[i], NULL);
+		i++;
+	}
 	
 	printf("num of philos is %d\n", philo.num_of_philos);
 	printf("die of philos is %ld\n", philo.time_to_die);
