@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-ARGS = 5 800 200 200 5
+ARGS = 50 410 200 200 10
 
 NAME = philo
 
@@ -13,6 +13,7 @@ make_philos.c \
 philo_init.c \
 mutex_init.c \
 philo_func.c \
+sleeping_func.c
 
 OBJECTS = $(SOURCES:%.c=%.o)
 

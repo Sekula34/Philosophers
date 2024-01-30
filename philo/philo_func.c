@@ -60,6 +60,7 @@ void *philo_func(void *pointer)
 		// pthread_mutex_unlock(diogen->first_fork);
 		// usleep(1000000);
 		eating_func(diogen);
+		sleeping(diogen);
 		i ++;
 		
 	}
