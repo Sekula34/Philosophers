@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
 	int i = 0;
+	eaters = NULL;
 	while (i < philo.num_of_philos)
 	{
 		printf("philo id is %d\n", philo.person[i].id);
@@ -38,12 +39,14 @@ int main(int argc, char **argv)
 		philo_end(&philo);
 		return (FAIL);
 	}
+	philo.eaters2 = eaters;
 	platos =malloc(sizeof(t_eater) * philo.num_of_philos);
 	if(platos == NULL)
 	{
 		philo_end(&philo);
 		return (FAIL);
 	}
+	philo.eaters = platos;
 	i = 0;
 	while(i < philo.num_of_philos)
 	{

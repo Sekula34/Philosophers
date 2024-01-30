@@ -17,6 +17,7 @@ void destroy_and_free_forks(int amount_to_destroy, t_philosophers *philo)
 	int i;
 	i = 0;
 	pthread_mutex_destroy(&philo->write_mut);
+	pthread_mutex_destroy(&philo->meal_mut);
 	while(i < amount_to_destroy)
 	{
 		pthread_mutex_destroy(&philo->fork_num[i]);
@@ -46,6 +47,8 @@ static int init_forks(t_philosophers *philo)
 void philo_end(t_philosophers *philo)
 {
 	free(philo->person);
+	free(philo->eaters);
+	free(philo->eaters2);
 	destroy_and_free_forks(philo->num_of_philos, philo);
 }
 
@@ -60,6 +63,12 @@ int	mutex_init(t_philosophers *philo)
 	if (pthread_mutex_init(&philo->write_mut, NULL) != 0)
 	{
 		printf("write mutex init failed \n");
+		return (FAIL);
+	}
+	if (pthread_mutex_init(&philo->meal_mut, NULL) != 0)
+	{
+		pthread_mutex_destroy(&philo->write_mut);
+		printf("failed init");
 		return (FAIL);
 	}
 	if (init_forks(philo) != 0)

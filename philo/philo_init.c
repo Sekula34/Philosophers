@@ -60,6 +60,8 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 	philo->start_time = get_time_in_milisec();
 	philo->person = NULL;
 	philo->meals = -1;
+	philo->eaters = NULL;
+	philo->eaters2 = NULL;
 	if (argc == 6)
 		philo->meals = ft_atoi(argv[5]);
 	if(mutex_init(philo) != 0)
