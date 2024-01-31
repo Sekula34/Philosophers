@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-void only_one(t_philosophers *philo)
+void	only_one(t_philosophers *philo)
 {
 	pthread_mutex_lock(&philo->write_mut);
 	printf("0 0 has taken a fork\n");
