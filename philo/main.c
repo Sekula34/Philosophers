@@ -12,6 +12,35 @@
 
 #include "philosophers.h"
 
+//return number of thread
+int thread_creation(t_philosophers *philo, t_eater *platos, pthread_t *eaters)
+{
+	int i;
+	void *pointer;
+
+	i = 0;
+	while (i < philo->num_of_philos)
+	{
+		pointer = (void *) (platos + i);
+		if (pthread_create(&eaters[i], NULL, &philo_func, pointer) !=0)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+//0 return ok 
+//1 return fail
+//2 continu
+int first_part(t_philosophers *philo, int argc, char **argv, pthread_t **eaters)
+{
+	if (philo_init(argc, argv, philo) != 0)
+		return (FAIL);
+	*eaters = NULL;
+	if (philo->num_of_philos == 1)
+		return (only_one(philo),philo_end(philo), OK);
+	return (2);
+}
 
 void end_part(int t_number, t_eater *platos, pthread_t *eaters, t_philosophers *philo)
 {
@@ -35,14 +64,10 @@ int main(int argc, char **argv)
 	pthread_t *eaters;
 	t_eater *platos;
 	int thread_number;
-	int i = 0;
-	void *pointer;
 
-	if (philo_init(argc, argv, &philo) != 0)
-		return (FAIL);
-	eaters = NULL;
-	if (philo.num_of_philos == 1)
-		return (only_one(&philo),philo_end(&philo), OK);
+	int i = 0;
+	if(first_part(&philo, argc, argv, &eaters) != 2)
+		return (OK);
 	eaters = malloc(sizeof(pthread_t) * philo.num_of_philos);
 	if (eaters == NULL)
 		return (philo_end(&philo),FAIL);
@@ -58,15 +83,6 @@ int main(int argc, char **argv)
 		platos[i].person = philo.person + i;
 		i++;
 	};
-	i = 0;
-	while (i < philo.num_of_philos)
-	{
-		pointer = (void *) (platos + i);
-		if (pthread_create(&eaters[i], NULL, &philo_func, pointer) !=0)
-			break;
-		i++;
-	}
-	thread_number = i;
-	end_part(thread_number, platos, eaters, &philo);
-	return (OK);
+	thread_number = thread_creation(&philo, platos, eaters);
+	return (end_part(thread_number, platos, eaters, &philo),OK);
 }
