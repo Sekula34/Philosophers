@@ -2,12 +2,13 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-ARGS = 50 410 200 200 10
+ARGS = 5 800 200 200 10
 
 NAME = philo
 
 SOURCES = main.c \
 eating_func.c \
+gravedigger.c \
 input_checker.c \
 make_philos.c \
 philo_init.c \

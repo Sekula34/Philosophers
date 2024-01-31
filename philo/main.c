@@ -67,6 +67,7 @@ int main(int argc, char **argv)
 		pthread_create(&eaters[i], NULL, &philo_func, pointer);
 		i++;
 	}
+	gravedigger(platos);
 	i = 0;
 	while (i < philo.num_of_philos)
 	{

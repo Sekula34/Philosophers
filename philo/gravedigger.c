@@ -1,0 +1,61 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gravedigger.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 11:21:50 by fseles            #+#    #+#             */
+/*   Updated: 2024/01/31 11:21:51 by fseles           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philosophers.h"
+
+//1 philosopher is dead
+//0 philosopher is still alive
+int	is_dead(t_eater *diogen)
+{
+	time_t last_meal;
+	time_t current;
+	time_t difference;
+	time_t time_to_die;
+
+	pthread_mutex_lock(&diogen->philo->meal_mut);
+	last_meal = diogen->person->last_meal_time;
+	time_to_die = diogen->philo->time_to_die;
+	pthread_mutex_unlock(&diogen->philo->meal_mut);
+	current = get_time_in_milisec();
+	difference = current - last_meal;
+	if(difference > time_to_die)
+	{
+		pthread_mutex_lock(&diogen->philo->meal_mut);
+		diogen->person->dead_flag = 1;
+		pthread_mutex_unlock(&diogen->philo->meal_mut);
+		pthread_mutex_lock(&diogen->philo->write_mut);
+		printf("%ld %d died\n", get_relative_time(diogen), diogen->person->id);
+		pthread_mutex_unlock(&diogen->philo->write_mut);
+		return (1);
+	}
+	return(0);
+}
+
+void gravedigger(t_eater *diogen)
+{
+	t_eater *current;
+	t_eater *first;
+
+	int i;
+
+	i = 0;
+	first = diogen;
+	current = first;
+	while(1)
+	{
+		if(i + 1 == diogen->philo->num_of_philos)
+			i = 0;
+		if(is_dead(diogen + i) == 1)
+			return ;
+		i++;
+	}
+}

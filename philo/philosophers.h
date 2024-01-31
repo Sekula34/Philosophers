@@ -64,6 +64,7 @@ int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
 time_t get_relative_time(t_eater *diogen);
 time_t get_time_in_milisec();
+void gravedigger(t_eater *diogen);
 int	input_checker(int argc, char **argv);
 int make_philos(t_philosophers *philo);
 int	mutex_init(t_philosophers *philo);
