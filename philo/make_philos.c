@@ -12,8 +12,7 @@
 
 #include "philosophers.h"
 
-
-time_t	get_time_in_milisec()
+time_t	get_time_in_milisec(void)
 {
 	struct timeval	my_time;
 	time_t			mili_time;
@@ -44,9 +43,9 @@ void	one_philo_init(t_person *person, int id, int nop)
 //make and initilize person of philos
 //0 ok 
 //1 Fail
-int make_philos(t_philosophers *philo)
+int	make_philos(t_philosophers *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	philo->person = malloc(sizeof(t_person) * philo->num_of_philos);
