@@ -10,23 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "philosophers.h"
 
 //1 continue sim
 //0 end sim
-int sleeping(t_eater *diogen)
+int	sleeping(t_eater *diogen)
 {
-	int id;
+	int	id;
 
 	id = diogen->person->id;
-	if(am_i_dead(diogen, 0) == 1)
+	if (am_i_dead(diogen, 0) == 1)
 		return (0);
 	pthread_mutex_lock(&diogen->philo->write_mut);
 	printf("%ld %d is sleeping\n", get_relative_time(diogen), id);
 	pthread_mutex_unlock(&diogen->philo->write_mut);
 	usleep(diogen->philo->time_to_sleep * MILI);
-	if(am_i_dead(diogen, 0) == 1)
+	if (am_i_dead(diogen, 0) == 1)
 		return (0);
 	pthread_mutex_lock(&diogen->philo->write_mut);
 	printf("%ld %d is thinking\n", get_relative_time(diogen), id);
