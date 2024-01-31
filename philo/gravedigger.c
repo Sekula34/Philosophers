@@ -15,16 +15,20 @@
 void kill_all(t_eater *diogen)
 {
 	(void) diogen;
-	// int i;
+	int i;
+	t_eater *first;
 
-	// i = 0;
-	// pthread_mutex_lock(&diogen->philo->meal_mut);
-	// while(i < diogen->philo->num_of_philos)
-	// {
-	// 	diogen->person->dead_flag = 1;
-	// 	diogen = (diogen + 1);
-	// }
-	// pthread_mutex_unlock(&diogen->philo->meal_mut);
+	first = diogen;
+
+	i = 0;
+	pthread_mutex_lock(&diogen->philo->meal_mut);
+	while(i < diogen->philo->num_of_philos)
+	{
+		first = diogen + i;
+		first->person->dead_flag = 1;
+		i++;
+	}
+	pthread_mutex_unlock(&diogen->philo->meal_mut);
 }
 
 //1 philosopher is dead
@@ -74,7 +78,7 @@ void gravedigger(t_eater *diogen)
 			i = 0;
 		if(is_dead(diogen + i) == 1)
 		{
-			//kill_all(first);
+			kill_all(first);
 			return ;
 		}
 		i++;
