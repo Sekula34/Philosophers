@@ -47,11 +47,15 @@ void *philo_func(void *pointer)
 {
 	t_eater *diogen;
 	int i;
+	int loop_cond;
 
 	diogen = (t_eater *)pointer;
 	set_forks(diogen);
 	i = 0;
-	while(diogen->philo->stop_simulation != 1)
+	loop_cond = 1;
+	if(diogen->philo->meals == 0)
+		loop_cond = 0;
+	while(loop_cond)
 	{
 		eating_func(diogen);
 		sleeping(diogen);
@@ -60,7 +64,7 @@ void *philo_func(void *pointer)
 		if(i == diogen->philo->meals)
 		{
 			pthread_mutex_lock(&diogen->philo->meal_mut);
-			diogen->philo->stop_simulation = 1;
+			loop_cond = 0;
 			pthread_mutex_unlock(&diogen->philo->meal_mut);
 		}
 	}
