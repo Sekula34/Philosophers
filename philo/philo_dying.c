@@ -18,6 +18,7 @@ int am_i_dead(t_eater *diogen, int number_of_mutex)
 {
 	int status;
 
+	
 	status = 0;
 	pthread_mutex_lock(&diogen->philo->meal_mut);
 	if(diogen->person->dead_flag == 1)

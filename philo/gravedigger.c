@@ -12,6 +12,23 @@
 
 #include "philosophers.h"
 
+void kill_all_protected(t_eater *diogen, int not)
+{
+	(void) diogen;
+	int i;
+	t_eater *first;
+
+	first = diogen;
+
+	i = 0;
+	while(i < not)
+	{
+		first = diogen + i;
+		first->person->dead_flag = 1;
+		i++;
+	}
+}
+
 void kill_all(t_eater *diogen)
 {
 	(void) diogen;

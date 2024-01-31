@@ -20,6 +20,8 @@ int main(int argc, char **argv)
 	pthread_t *eaters;
 	t_eater *platos;
 
+	int thread_number;
+
 	if(philo_init(argc, argv, &philo) != 0)
 		return(FAIL);
 	int i = 0;
@@ -63,30 +65,21 @@ int main(int argc, char **argv)
 	int j;
 	j = 0;
 	void *pointer;
+	int return_status;
 	while (i < philo.num_of_philos)
 	{
 		pointer = (void *) (platos + i);
 		if(pthread_create(&eaters[i], NULL, &philo_func, pointer) !=0)
 		{
-			pthread_mutex_lock(&philo.meal_mut);
-			philo.time_to_die = 0;
-			pthread_mutex_unlock(&philo.meal_mut);
-			kill_all(platos);
-			usleep(10000);
-			while(j < (i - 1))
-			{
-				pthread_detach(eaters[j]);
-				//pthread_join(eaters[j], NULL);
-				j++;
-			}
-			philo_end(&philo);
-			return (FAIL);
+			return_status = FAIL;
+			break;
 		}
 		i++;
 	}
+	thread_number = i;
 	gravedigger(platos);
 	i = 0;
-	while (i < philo.num_of_philos)
+	while (i < thread_number)
 	{
 		pthread_join(eaters[i], NULL);
 		i++;
