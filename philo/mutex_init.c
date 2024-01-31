@@ -12,13 +12,14 @@
 
 #include "philosophers.h"
 
-void destroy_and_free_forks(int amount_to_destroy, t_philosophers *philo)
+void	destroy_and_free_forks(int amount_to_destroy, t_philosophers *philo)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	pthread_mutex_destroy(&philo->write_mut);
 	pthread_mutex_destroy(&philo->meal_mut);
-	while(i < amount_to_destroy)
+	while (i < amount_to_destroy)
 	{
 		pthread_mutex_destroy(&philo->fork_num[i]);
 		i++;
@@ -27,14 +28,14 @@ void destroy_and_free_forks(int amount_to_destroy, t_philosophers *philo)
 	return ;
 }
 
-static int init_forks(t_philosophers *philo)
+static int	init_forks(t_philosophers *philo)
 {
-	int i; 
+	int	i;
 
 	i = 0;
-	while(i < philo->num_of_philos)
+	while (i < philo->num_of_philos)
 	{
-		if(pthread_mutex_init(&philo->fork_num[i], NULL) != 0)
+		if (pthread_mutex_init(&philo->fork_num[i], NULL) != 0)
 		{
 			destroy_and_free_forks(i, philo);
 			return (FAIL);
@@ -44,7 +45,7 @@ static int init_forks(t_philosophers *philo)
 	return (OK);
 }
 
-void philo_end(t_philosophers *philo)
+void	philo_end(t_philosophers *philo)
 {
 	free(philo->person);
 	free(philo->eaters);
@@ -73,5 +74,5 @@ int	mutex_init(t_philosophers *philo)
 	}
 	if (init_forks(philo) != 0)
 		return (FAIL);
-	return(OK);
+	return (OK);
 }
