@@ -13,6 +13,7 @@ input_checker.c \
 make_philos.c \
 philo_init.c \
 mutex_init.c \
+philo_dying.c \
 philo_func.c \
 sleeping_func.c
 

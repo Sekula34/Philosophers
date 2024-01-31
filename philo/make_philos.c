@@ -35,6 +35,7 @@ void	one_philo_init(t_person *person, int id, int nop)
 	person->dead_flag = 0;
 	person->left_fork = id;
 	person->right_fork = id - 1;
+	person->number_of_meals = 0;
 	if (id == 0)
 		person->right_fork = nop - 1;
 	person->last_meal_time = get_time_in_milisec();

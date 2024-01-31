@@ -32,6 +32,7 @@ typedef struct s_person
 	int right_fork; 
 	time_t last_meal_time;
 	int dead_flag;
+	int number_of_meals;
 } t_person;
 
 typedef struct s_philosophers
@@ -60,7 +61,8 @@ typedef struct s_eater
 	pthread_mutex_t *second_fork;
 } t_eater;
 
-void eating_func(t_eater *diogen);
+int am_i_dead(t_eater *diogen, int number_of_mutex);
+int eating_func(t_eater *diogen);
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
 time_t get_relative_time(t_eater *diogen);
