@@ -26,6 +26,12 @@ int main(int argc, char **argv)
 		return(FAIL);
 	int i = 0;
 	eaters = NULL;
+	if(philo.num_of_philos == 1)
+	{
+		only_one(&philo);
+		philo_end(&philo);
+		return (OK);
+	}
 	while (i < philo.num_of_philos)
 	{
 		printf("philo id is %d\n", philo.person[i].id);

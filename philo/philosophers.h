@@ -73,6 +73,7 @@ void kill_all(t_eater *diogen);
 void kill_all_protected(t_eater *diogen, int not);
 int make_philos(t_philosophers *philo);
 int	mutex_init(t_philosophers *philo);
+void only_one(t_philosophers *philo);
 void philo_end(t_philosophers *philo);
 void *philo_func(void *pointer);
 int philo_init(int argc, char **argv, t_philosophers *philo);

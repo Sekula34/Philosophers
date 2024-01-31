@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-ARGS = 5 100 200 200 
+ARGS = 1 1900 200 100 
 
 NAME = philo
 
@@ -13,6 +13,7 @@ input_checker.c \
 make_philos.c \
 philo_init.c \
 mutex_init.c \
+only_one.c \
 philo_dying.c \
 philo_func.c \
 sleeping_func.c
