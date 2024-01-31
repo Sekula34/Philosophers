@@ -49,10 +49,10 @@ int	ft_atoi(const char *nptr)
 //initialize evertyhint
 //ok
 //fail
-int philo_init(int argc, char **argv, t_philosophers *philo)
+int	philo_init(int argc, char **argv, t_philosophers *philo)
 {
-	if(input_checker(argc, argv) != 0)
-		return(FAIL);
+	if (input_checker(argc, argv) != 0)
+		return (FAIL);
 	philo->num_of_philos = ft_atoi(argv[1]);
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
@@ -65,9 +65,9 @@ int philo_init(int argc, char **argv, t_philosophers *philo)
 	philo->stop_simulation = 0;
 	if (argc == 6)
 		philo->meals = ft_atoi(argv[5]);
-	if(mutex_init(philo) != 0)
+	if (mutex_init(philo) != 0)
 		return (FAIL);
-	if(make_philos(philo) != 0)
+	if (make_philos(philo) != 0)
 	{
 		philo_end(philo);
 		return (FAIL);
