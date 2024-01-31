@@ -14,29 +14,29 @@
 
 //option 1 first fork
 //option 2 second fork
-static pthread_mutex_t *get_fork(t_eater *diogen, int id, int option)
+static pthread_mutex_t	*get_fork(t_eater *diogen, int id, int option)
 {
-	pthread_mutex_t *first;
+	pthread_mutex_t	*first;
 
-	if(option == 2)
+	if (option == 2)
 		id++;
-	if(id % 2 == 1)
+	if (id % 2 == 1)
 		first = &diogen->philo->fork_num[diogen->person->left_fork];
 	else
-		first =&diogen->philo->fork_num[diogen->person->right_fork];
-	return(first);
+		first = &diogen->philo->fork_num[diogen->person->right_fork];
+	return (first);
 }
 
-static void set_forks(t_eater *diogen)
+static void	set_forks(t_eater *diogen)
 {
 	diogen->first_fork = get_fork(diogen, diogen->person->id, 1);
 	diogen->second_fork = get_fork(diogen, diogen->person->id, 2);
 }
 
-time_t get_relative_time(t_eater *diogen)
+time_t	get_relative_time(t_eater *diogen)
 {
-	time_t current_time;
-	time_t relative_time;
+	time_t	current_time;
+	time_t	relative_time;
 
 	current_time = get_time_in_milisec();
 	relative_time = current_time - diogen->philo->start_time;
@@ -45,42 +45,43 @@ time_t get_relative_time(t_eater *diogen)
 
 //0 continue
 //1 break
-int loop_function(t_eater *diogen, int *i, int *loop_cond)
+int	loop_function(t_eater *diogen, int *i, int *loop_cond)
 {
-		if(eating_func(diogen) == 0)
-			return (1);
-		if(sleeping(diogen) == 0)
-			return(1);
-		if(diogen->philo->meals != -1)
-			*i = *i + 1;
-		if(*i == diogen->philo->meals)
-		{
-			pthread_mutex_lock(&diogen->philo->meal_mut);
-			*loop_cond = 0;
-			pthread_mutex_unlock(&diogen->philo->meal_mut);
-		}
+	if (eating_func(diogen) == 0)
+		return (1);
+	if (sleeping(diogen) == 0)
+		return (1);
+	if (diogen->philo->meals != -1)
+		*i = *i + 1;
+	if (*i == diogen->philo->meals)
+	{
 		pthread_mutex_lock(&diogen->philo->meal_mut);
-		if(diogen->philo->stop_simulation == 1)
-			*loop_cond = 0;
+		*loop_cond = 0;
 		pthread_mutex_unlock(&diogen->philo->meal_mut);
-		return (0);
+	}
+	pthread_mutex_lock(&diogen->philo->meal_mut);
+	if (diogen->philo->stop_simulation == 1)
+		*loop_cond = 0;
+	pthread_mutex_unlock(&diogen->philo->meal_mut);
+	return (0);
 }
 
-void *philo_func(void *pointer)
+void	*philo_func(void *pointer)
 {
-	t_eater *diogen;
-	int i;
-	int loop_cond;
+	t_eater	*diogen;
+	int		i;
+	int		loop_cond;
 
 	diogen = (t_eater *)pointer;
 	set_forks(diogen);
 	i = 0;
 	loop_cond = 1;
-	if(diogen->philo->meals == 0)
+	if (diogen->philo->meals == 0)
 		loop_cond = 0;
-	while(loop_cond)
+	while (loop_cond)
 	{
-		if(loop_function(diogen, &i, &loop_cond) ==1);
+		if (loop_function(diogen, &i, &loop_cond) == 1)
+			break ;
 	}
-	return NULL;
+	return (NULL);
 }
