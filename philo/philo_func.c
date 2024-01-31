@@ -43,6 +43,29 @@ time_t get_relative_time(t_eater *diogen)
 	return (relative_time);
 }
 
+//0 continue
+//1 break
+int loop_function(t_eater *diogen, int *i, int *loop_cond)
+{
+		if(eating_func(diogen) == 0)
+			return (1);
+		if(sleeping(diogen) == 0)
+			return(1);
+		if(diogen->philo->meals != -1)
+			*i = *i + 1;
+		if(*i == diogen->philo->meals)
+		{
+			pthread_mutex_lock(&diogen->philo->meal_mut);
+			*loop_cond = 0;
+			pthread_mutex_unlock(&diogen->philo->meal_mut);
+		}
+		pthread_mutex_lock(&diogen->philo->meal_mut);
+		if(diogen->philo->stop_simulation == 1)
+			*loop_cond = 0;
+		pthread_mutex_unlock(&diogen->philo->meal_mut);
+		return (0);
+}
+
 void *philo_func(void *pointer)
 {
 	t_eater *diogen;
@@ -57,22 +80,7 @@ void *philo_func(void *pointer)
 		loop_cond = 0;
 	while(loop_cond)
 	{
-		if(eating_func(diogen) == 0)
-			break;
-		if(sleeping(diogen) == 0)
-			break;
-		if(diogen->philo->meals != -1)
-			i++;
-		if(i == diogen->philo->meals)
-		{
-			pthread_mutex_lock(&diogen->philo->meal_mut);
-			loop_cond = 0;
-			pthread_mutex_unlock(&diogen->philo->meal_mut);
-		}
-		pthread_mutex_lock(&diogen->philo->meal_mut);
-		if(diogen->philo->stop_simulation == 1)
-			loop_cond = 0;
-		pthread_mutex_unlock(&diogen->philo->meal_mut);
+		if(loop_function(diogen, &i, &loop_cond) ==1);
 	}
 	return NULL;
 }

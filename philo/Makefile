@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-ARGS = 1 1900 200 100 
+ARGS = 4 310 200 200 
 
 NAME = philo
 
