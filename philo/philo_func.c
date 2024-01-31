@@ -51,7 +51,7 @@ void *philo_func(void *pointer)
 	diogen = (t_eater *)pointer;
 	set_forks(diogen);
 	i = 0;
-	while(i < diogen->philo->meals)
+	while(i < diogen->philo->meals || i == 0)
 	{
 		// pthread_mutex_lock(diogen->first_fork);
 		// pthread_mutex_lock(&diogen->philo->write_mut);
@@ -61,7 +61,8 @@ void *philo_func(void *pointer)
 		// usleep(1000000);
 		eating_func(diogen);
 		sleeping(diogen);
-		i ++;
+		if(diogen->philo->meals != -1)
+			i++;
 		
 	}
 	return NULL;
