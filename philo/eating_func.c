@@ -41,6 +41,7 @@ int eating_func(t_eater *diogen)
 	usleep(diogen->philo->time_to_eat * 1000);
 	pthread_mutex_unlock(diogen->first_fork);
 	pthread_mutex_unlock(diogen->second_fork);
+	//printf("%ld %d pustene vilice fork\n", get_relative_time(diogen), id);
 	if(am_i_dead(diogen, 0) == 1)
 		return (0);
 	return (1);
