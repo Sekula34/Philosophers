@@ -69,6 +69,10 @@ void *philo_func(void *pointer)
 			loop_cond = 0;
 			pthread_mutex_unlock(&diogen->philo->meal_mut);
 		}
+		pthread_mutex_lock(&diogen->philo->meal_mut);
+		if(diogen->philo->stop_simulation == 1)
+			loop_cond = 0;
+		pthread_mutex_unlock(&diogen->philo->meal_mut);
 	}
 	return NULL;
 }

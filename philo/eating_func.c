@@ -38,7 +38,7 @@ int eating_func(t_eater *diogen)
 	diogen->person->number_of_meals++;
 	pthread_mutex_unlock(&diogen->philo->meal_mut);
 	pthread_mutex_unlock(&diogen->philo->write_mut);
-	usleep(diogen->philo->time_to_eat * MILI);
+	usleep(diogen->philo->time_to_eat * 1000);
 	pthread_mutex_unlock(diogen->first_fork);
 	pthread_mutex_unlock(diogen->second_fork);
 	if(am_i_dead(diogen, 0) == 1)

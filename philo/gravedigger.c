@@ -42,10 +42,12 @@ int	is_dead(t_eater *diogen)
 	pthread_mutex_unlock(&diogen->philo->meal_mut);
 	current = get_time_in_milisec();
 	difference = current - last_meal;
+	//printf("difference is %ld, time to die is %ld, current time is %ld, last meal time is %ld\n", difference, time_to_die, current, last_meal);
 	if(difference > time_to_die)
 	{
 		pthread_mutex_lock(&diogen->philo->meal_mut);
 		diogen->person->dead_flag = 1;
+		diogen->philo->stop_simulation = 1;
 		pthread_mutex_unlock(&diogen->philo->meal_mut);
 		pthread_mutex_lock(&diogen->philo->write_mut);
 		if(diogen->person->number_of_meals != diogen->philo->meals)
@@ -72,7 +74,7 @@ void gravedigger(t_eater *diogen)
 			i = 0;
 		if(is_dead(diogen + i) == 1)
 		{
-			kill_all(first);
+			//kill_all(first);
 			return ;
 		}
 		i++;
