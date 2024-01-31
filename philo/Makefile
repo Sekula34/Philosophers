@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-ARGS = 5 800 200 200 
+ARGS = 5 100 200 200 
 
 NAME = philo
 
@@ -27,7 +27,7 @@ HEADERS = philosophers.h
 $(NAME) : $(OBJECTS) $(HEADERS)
 	cc $(OBJECTS) -o $(NAME) -g -pthread
 
-.PHONY : all clean fclean re valgrind
+.PHONY : all clean fclean re valgrind ulimit
 
 all : $(NAME)
 
@@ -50,3 +50,6 @@ fun :philo
 
 start : philo
 	./philo $(ARGS)
+
+ulimit : philo 
+	(ulimit -v 140000 ; valgrind --tool=helgrind ./philo 5 610 200 200 10)

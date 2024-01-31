@@ -60,11 +60,28 @@ int main(int argc, char **argv)
 	// void *pointer;
 	// pointer = &diogen;
 	i = 0;
+	int j;
+	j = 0;
 	void *pointer;
 	while (i < philo.num_of_philos)
 	{
 		pointer = (void *) (platos + i);
-		pthread_create(&eaters[i], NULL, &philo_func, pointer);
+		if(pthread_create(&eaters[i], NULL, &philo_func, pointer) !=0)
+		{
+			pthread_mutex_lock(&philo.meal_mut);
+			philo.time_to_die = 0;
+			pthread_mutex_unlock(&philo.meal_mut);
+			kill_all(platos);
+			usleep(10000);
+			while(j < (i - 1))
+			{
+				pthread_detach(eaters[j]);
+				//pthread_join(eaters[j], NULL);
+				j++;
+			}
+			philo_end(&philo);
+			return (FAIL);
+		}
 		i++;
 	}
 	gravedigger(platos);

@@ -69,6 +69,7 @@ time_t get_relative_time(t_eater *diogen);
 time_t get_time_in_milisec();
 void gravedigger(t_eater *diogen);
 int	input_checker(int argc, char **argv);
+void kill_all(t_eater *diogen);
 int make_philos(t_philosophers *philo);
 int	mutex_init(t_philosophers *philo);
 void philo_end(t_philosophers *philo);
