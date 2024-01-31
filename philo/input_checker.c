@@ -35,9 +35,9 @@ int	ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-static int single_check(char *str)
+static int	single_check(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -45,7 +45,7 @@ static int single_check(char *str)
 		if (ft_isdigit(str[i]) != 1)
 		{
 			write(2, "Invalid input\n", 15);
-			return(FAIL);
+			return (FAIL);
 		}
 		i++;
 	}
@@ -57,14 +57,14 @@ static int single_check(char *str)
 	return (OK);
 }
 
-static int argv_checer(int argc, char **argv)
+static int	argv_checer(int argc, char **argv)
 {
-	int i; 
+	int	i;
 
 	i = 1;
-	while(i < argc)
+	while (i < argc)
 	{
-		if(single_check((argv[i])) != 0)
+		if (single_check((argv[i])) != 0)
 			return (FAIL);
 		i++;
 	}
@@ -73,8 +73,7 @@ static int argv_checer(int argc, char **argv)
 
 int	input_checker(int argc, char **argv)
 {
-	(void) argv;
-	if(argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6)
 	{
 		write(2, "Program should take the following arguments\n", 45);
 		write(2, "\ttime_to_die\n\ttime_to_eat\n\ttime_to_sleep\n", 42);
@@ -82,7 +81,7 @@ int	input_checker(int argc, char **argv)
 		write(2, "\noptional arguments is number of meals", 39);
 		return (FAIL);
 	}
-	if(argv_checer(argc, argv) != 0)
-		return(FAIL);
+	if (argv_checer(argc, argv) != 0)
+		return (FAIL);
 	return (OK);
 }
