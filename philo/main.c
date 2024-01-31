@@ -16,70 +16,38 @@
 int main(int argc, char **argv)
 {
 	t_philosophers philo;
-	//t_eater diogen;
 	pthread_t *eaters;
 	t_eater *platos;
-
 	int thread_number;
 
-	if(philo_init(argc, argv, &philo) != 0)
-		return(FAIL);
+	if (philo_init(argc, argv, &philo) != 0)
+		return (FAIL);
 	int i = 0;
 	eaters = NULL;
-	if(philo.num_of_philos == 1)
-	{
-		only_one(&philo);
-		philo_end(&philo);
-		return (OK);
-	}
-	while (i < philo.num_of_philos)
-	{
-		printf("philo id is %d\n", philo.person[i].id);
-		printf("dead flag is %d\n", philo.person[i].dead_flag);
-		printf("last meal was %ld\n", philo.person[i].last_meal_time);
-		printf("philo left_fork is %d\n", philo.person[i].left_fork);
-		printf("philo right fork is %d\n\n", philo.person[i].right_fork);
-		i++;
-	}
+	if (philo.num_of_philos == 1)
+		return (only_one(&philo),philo_end(&philo), OK);
 	eaters = malloc(sizeof(pthread_t) * philo.num_of_philos);
-	if(eaters == NULL)
-	{
-		philo_end(&philo);
-		return (FAIL);
-	}
+	if (eaters == NULL)
+		return (philo_end(&philo),FAIL);
 	philo.eaters2 = eaters;
-	platos =malloc(sizeof(t_eater) * philo.num_of_philos);
+	platos = malloc(sizeof(t_eater) * philo.num_of_philos);
 	if(platos == NULL)
-	{
-		philo_end(&philo);
-		return (FAIL);
-	}
+		return (philo_end(&philo), FAIL);
 	philo.eaters = platos;
 	i = 0;
 	while(i < philo.num_of_philos)
 	{
-		platos[i].philo =&philo;
+		platos[i].philo = &philo;
 		platos[i].person =philo.person + i;
 		i++;
-	}
-	// diogen.philo = &philo;
-	// diogen.person = philo.person;
-	// diogen.id = 0;
-	// void *pointer;
-	// pointer = &diogen;
+	};
 	i = 0;
-	int j;
-	j = 0;
 	void *pointer;
-	int return_status;
 	while (i < philo.num_of_philos)
 	{
 		pointer = (void *) (platos + i);
 		if(pthread_create(&eaters[i], NULL, &philo_func, pointer) !=0)
-		{
-			return_status = FAIL;
 			break;
-		}
 		i++;
 	}
 	thread_number = i;
@@ -90,13 +58,6 @@ int main(int argc, char **argv)
 		pthread_join(eaters[i], NULL);
 		i++;
 	}
-	printf("num of philos is %d\n", philo.num_of_philos);
-	printf("die of philos is %ld\n", philo.time_to_die);
-	printf("eat of philos is %ld\n", philo.time_to_eat);
-	printf("sleep of philos is %ld\n", philo.time_to_sleep);
-	printf("meals of philos is %d\n", philo.meals);
 	philo_end(&philo);
 	return (OK);
-	//init
-	//philosophers_il_stagod
 }
