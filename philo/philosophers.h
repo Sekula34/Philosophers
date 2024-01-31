@@ -48,6 +48,7 @@ typedef struct s_philosophers
 	t_person *person;
 	void *eaters;
 	pthread_t *eaters2;
+	int stop_simulation;
 } t_philosophers;
 
 typedef struct s_eater

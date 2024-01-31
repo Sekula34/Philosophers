@@ -51,19 +51,18 @@ void *philo_func(void *pointer)
 	diogen = (t_eater *)pointer;
 	set_forks(diogen);
 	i = 0;
-	while(i < diogen->philo->meals || i == 0)
+	while(diogen->philo->stop_simulation != 1)
 	{
-		// pthread_mutex_lock(diogen->first_fork);
-		// pthread_mutex_lock(&diogen->philo->write_mut);
-		// printf("%ld %d has taken a fork\n", get_relative_time(diogen), diogen->person->id);
-		// pthread_mutex_unlock(&diogen->philo->write_mut);
-		// pthread_mutex_unlock(diogen->first_fork);
-		// usleep(1000000);
 		eating_func(diogen);
 		sleeping(diogen);
 		if(diogen->philo->meals != -1)
 			i++;
-		
+		if(i == diogen->philo->meals)
+		{
+			pthread_mutex_lock(&diogen->philo->meal_mut);
+			diogen->philo->stop_simulation = 1;
+			pthread_mutex_unlock(&diogen->philo->meal_mut);
+		}
 	}
 	return NULL;
 }
