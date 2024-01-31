@@ -64,9 +64,9 @@ int	main(int argc, char **argv)
 	t_philosophers	philo;
 	pthread_t		*eaters;
 	t_eater			*platos;
-	int				thread_number;
+	int				i;
 
-	int i = 0;
+	i = 0;
 	if (first_part(&philo, argc, argv, &eaters) != 2)
 		return (OK);
 	eaters = malloc(sizeof(pthread_t) * philo.num_of_philos);
@@ -84,6 +84,6 @@ int	main(int argc, char **argv)
 		platos[i].person = philo.person + i;
 		i++;
 	}
-	thread_number = thread_creation(&philo, platos, eaters);
-	return (end_part(thread_number, platos, eaters, &philo), OK);
+	philo.thread_number = thread_creation(&philo, platos, eaters);
+	return (end_part(philo.thread_number, platos, eaters, &philo), OK);
 }

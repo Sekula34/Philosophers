@@ -49,6 +49,7 @@ typedef struct s_philosophers
 	void			*eaters;
 	pthread_t		*eaters2;
 	int				stop_simulation;
+	int				thread_number;
 }	t_philosophers;
 
 typedef struct s_eater
