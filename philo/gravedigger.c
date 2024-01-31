@@ -12,6 +12,21 @@
 
 #include "philosophers.h"
 
+void kill_all(t_eater *diogen)
+{
+	(void) diogen;
+	// int i;
+
+	// i = 0;
+	// pthread_mutex_lock(&diogen->philo->meal_mut);
+	// while(i < diogen->philo->num_of_philos)
+	// {
+	// 	diogen->person->dead_flag = 1;
+	// 	diogen = (diogen + 1);
+	// }
+	// pthread_mutex_unlock(&diogen->philo->meal_mut);
+}
+
 //1 philosopher is dead
 //0 philosopher is still alive
 int	is_dead(t_eater *diogen)
@@ -33,7 +48,8 @@ int	is_dead(t_eater *diogen)
 		diogen->person->dead_flag = 1;
 		pthread_mutex_unlock(&diogen->philo->meal_mut);
 		pthread_mutex_lock(&diogen->philo->write_mut);
-		printf("%ld %d died\n", get_relative_time(diogen), diogen->person->id);
+		if(diogen->person->number_of_meals != diogen->philo->meals)
+			printf("%ld %d died\n", get_relative_time(diogen), diogen->person->id);
 		pthread_mutex_unlock(&diogen->philo->write_mut);
 		return (1);
 	}
@@ -55,7 +71,10 @@ void gravedigger(t_eater *diogen)
 		if(i + 1 == diogen->philo->num_of_philos)
 			i = 0;
 		if(is_dead(diogen + i) == 1)
+		{
+			kill_all(first);
 			return ;
+		}
 		i++;
 	}
 }

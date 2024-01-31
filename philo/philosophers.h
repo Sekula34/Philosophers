@@ -74,6 +74,6 @@ int	mutex_init(t_philosophers *philo);
 void philo_end(t_philosophers *philo);
 void *philo_func(void *pointer);
 int philo_init(int argc, char **argv, t_philosophers *philo);
-void sleeping(t_eater *diogen);
+int sleeping(t_eater *diogen);
 
 #endif

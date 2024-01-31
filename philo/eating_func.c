@@ -35,10 +35,13 @@ int eating_func(t_eater *diogen)
 	printf("%ld %d is eating\n", get_relative_time(diogen), id);
 	pthread_mutex_lock(&diogen->philo->meal_mut);
 	diogen->person->last_meal_time = get_time_in_milisec();
+	diogen->person->number_of_meals++;
 	pthread_mutex_unlock(&diogen->philo->meal_mut);
 	pthread_mutex_unlock(&diogen->philo->write_mut);
 	usleep(diogen->philo->time_to_eat * MILI);
 	pthread_mutex_unlock(diogen->first_fork);
 	pthread_mutex_unlock(diogen->second_fork);
+	if(am_i_dead(diogen, 0) == 1)
+		return (0);
 	return (1);
 }

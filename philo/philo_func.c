@@ -57,8 +57,10 @@ void *philo_func(void *pointer)
 		loop_cond = 0;
 	while(loop_cond)
 	{
-		eating_func(diogen);
-		sleeping(diogen);
+		if(eating_func(diogen) == 0)
+			break;
+		if(sleeping(diogen) == 0)
+			break;
 		if(diogen->philo->meals != -1)
 			i++;
 		if(i == diogen->philo->meals)
